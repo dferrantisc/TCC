@@ -1,0 +1,10 @@
+Próxima etapa: 31/05/2021 - (6,0)
+- Configurar GIT e submeter as implantações
+• Implementação da Arquitetura
+• Conexão com o Banco de Dados
+• Criação de Entidades
+• Validação de Software utilizando Testes Unitários e Testes de Integração
+Obs: Será solicitado no Classroom o arquivo completo, com todas as tarefas, 
+Com capa e folha de rosto da UNIGRAN
+
+URGENTEEEEEEE
