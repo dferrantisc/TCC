@@ -28,13 +28,6 @@ nav {
     height: 8vh;
 }
 
-main {
-    /*background: url("/imgs/fundo.jpg") no-repeat center center;*/
-    background: #ffeaa7;
-    background-size: cover;
-    height: 92vh;
-}
-
 .navlist {
     list-style: none;
     display: flex;
@@ -60,7 +53,11 @@ main {
 
 @media (max-width: 999px) {
     body {
+        /*background: url("/imgs/fundo.jpg") no-repeat center center;*/
         overflow-x: hidden;
+        background: #ffeaa7;
+        background-size: cover;
+        height: 92vh;
     }
     .navlist {
         position: absolute;
