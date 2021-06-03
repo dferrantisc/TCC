@@ -1,8 +1,8 @@
 class MobileNavB {
     constructor(mobileMenu) {
         this.mobileMenu = document.querySelector(mobileMenu);
-        this.navlist = document.querySelector(navlist);
-        this.navLinks = document.querySelectorAll(navLinks);
+        this.navlist = document.querySelector(this.navlist);
+        this.navLinks = document.querySelectorAll(this.navLinks);
         this.activeClass = "active";
 
         this.handleClick = this.handleClick.blid();
@@ -34,5 +34,5 @@ class MobileNavB {
     }
 }
 
-const mobileNavB = new MobileNavB(".menu", ".navlist", ".navlist li");
+const mobileNavB = new MobileNavB(".menu", ".navlist", ".navlistli");
 mobileNavB.init();
