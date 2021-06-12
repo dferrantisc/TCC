@@ -8,9 +8,11 @@
 /*Estilo do Topo da Página*/
 
 body {
-    margin: 0;
-    padding: 0;
-    background: #fad390;
+    width: 100%;
+    background: #F9A03F;
+    overflow-x: hidden;
+    /*
+    #fad390;*/
 }
 
 nav {
@@ -24,13 +26,13 @@ nav {
 }
 
 button img {
-    height: 25px;
-    width: 25px;
+    height: 20px;
+    width: 20px;
 }
 
 ul {
     padding: 0;
-    margin: 0 0 0 150px;
+    /*margin: 0 0 0 150px;*/
     list-style: none;
 }
 
@@ -75,12 +77,14 @@ img {
 /*Estilo do Rodapé da Página*/
 
 footer {
+    position: absolute;
     background: #ffeaa7;
     height: auto;
-    width: 100vw;
+    width: 100%;
     font-family: "Open Sans";
     padding-top: 40px;
-    color: #353b48;
+    color: black;
+    /*#353b48;*/
 }
 
 .footer-content {
@@ -116,25 +120,6 @@ footer {
     display: flex;
     align-items: center;
     justify-content: center;
-    margin: 1rem 0 3rem 0;
-}
-
-.socialsm li {
-    margin: 0 10px;
-}
-
-.socialsm a {
-    text-decoration: none;
-    color: seagreen;
-}
-
-.socialsm a i {
-    font-size: 1.1rem;
-    transition: color.5s ease;
-}
-
-.socialsma:hover i {
-    color: #353b48;
 }
 
 .footer-bottom {
