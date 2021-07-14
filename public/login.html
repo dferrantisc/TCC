@@ -6,86 +6,86 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <!--Icon da Pagina-->
     <link rel="icon" type="imagen/png" href="imgs/lighthouse.png" />
+    <!--Estilo da Página-->
+    <link rel="stylesheet" type="text/css" href="css/logstyle.css" />
+
     <title>WebSISCaVi-Login</title>
 </head>
 
 <body>
-    <!--Formulário de Login do Site-->
-    <div id="Login" class="limiter">
-        <div class="container-login100" style="background-image: url('images/bg-01.jpg')">
-            <div class="wrap-login100">
-                <form class="login100-form validate-form">
-                    <span class="login100-form-logo">
-              <i class="zmdi zmdi-landscape"></i>
-            </span>
+    <div class="container">
+        <a class="links" id="paracadastro"></a>
+        <a class="links" id="paralogin"></a>
 
-                    <span class="login100-form-title p-b-34 p-t-27"> Fazer Login </span>
+        <div class="content">
+            <!--Formulário de Login do Site-->
 
-                    <div class="wrap-input100 validate-input" data-validate="Enter username">
-                        <input class="input100" type="text" name="username" placeholder="Usuário ou E-mail" />
-                        <span class="focus-input100" data-placeholder="&#xf207;"></span>
-                    </div>
+            <div id="login">
+                <form method="post" action="">
+                    <h1>Fazer Login</h1>
+                    <p>
+                        <label for="email_login">Usuário ou E-mail</label>
+                        <input id="email_login" name="email_login" required="required" type="text" placeholder=" user ou contato@htmlecsspro.com" />
+                    </p>
 
-                    <div class="wrap-input100 validate-input" data-validate="Enter password">
-                        <input class="input100" type="password" name="pass" placeholder="Senha" />
-                        <span class="focus-input100" data-placeholder="&#xf191;"></span>
-                    </div>
+                    <p>
+                        <label for="senha_login">Senha</label>
+                        <input id="senha_login" name="senha_login" required="required" type="password" placeholder="1234" />
+                    </p>
 
-                    <div class="contact100-form-checkbox">
-                        <input class="input-checkbox100" id="ckb1" type="checkbox" name="remember-me" />
-                        <label class="label-checkbox100" for="ckb1"> Lembre-me </label>
-                    </div>
+                    <p>
+                        <input type="checkbox" name="manterlogado" id="manterlogado" value="" />
+                        <label for="manterlogado">Lembre-me!</label>
+                    </p>
 
-                    <div class="container-login100-form-btn">
-                        <button class="login100-form-btn">Entrar</button>
-                    </div>
+                    <p>
+                        <input type="submit" value="Entrar" />
+                    </p>
 
-                    <div class="text-center p-t-90">
-                        <a class="txt1" href="#"> Esqueceu a Senha? </a>
-                    </div>
+                    <p class="link">
+                        Ainda não tem conta?
+                        <a href="#paracadastro">Cadastre-se</a>
+                    </p>
+                </form>
+            </div>
 
-                    <div class="container-login100-form-btn">
-                        <button class="login100-form-btn">Criar Conta</button>
-                    </div>
+            <!--Formulário de Cadastro de novo Login-->
+
+            <div id="cadastro">
+                <form method="post" action="">
+                    <h1>Cadastro</h1>
+
+                    <p>
+                        <label for="nome_cad">Nome</label>
+                        <input id="nome_cad" name="nome_cad" required="required" type="text" placeholder="Insira o seu Nome" />
+                    </p>
+
+                    <p>
+                        <label for="email_cad">E-mail</label>
+                        <input id="email_cad" name="email_cad" required="required" type="email" placeholder="Insira o seu E-mail" />
+                    </p>
+
+                    <p>
+                        <label for="user_cad">Usuário</label>
+                        <input id="user_cad" name="user_cad" required="required" type="email" placeholder="Insira o Usuário ou Nome da Empresa" />
+                    </p>
+
+                    <p>
+                        <label for="senha_cad">Senha</label>
+                        <input id="senha_cad" name="senha_cad" required="required" type="password" placeholder="1234" />
+                    </p>
+
+                    <p>
+                        <input type="submit" value="Cadastrar" />
+                    </p>
+
+                    <p class="link">
+                        Já tem conta?
+                        <a href="#paralogin"> Ir para Login </a>
+                    </p>
                 </form>
             </div>
         </div>
-    </div>
-
-    <div id="dropDownSelect1"></div>
-    <!--Formulário de Cadastro de novo Login-->
-    <div id="CadastroLogin">
-        <form method="POST" action="">
-            <h1>Cadastro</h1>
-            <p>
-                <div class="wrap-input100 validate-input" data-validate="Insira o Nome">
-                    <input id="CadNome" class="input100" type="text" name="CadNome" placeholder="Nome" />
-                    <span class="focus-input100" data-placeholder="&#xf207;"></span>
-                </div>
-
-            </p>
-            <p>
-                <div class="wrap-input100 validate-input" data-validate="Insira o E-mail">
-                    <input id="CadEmail" class="input100" type="text" name="CadEmail" placeholder="E-mail" />
-                    <span class="focus-input100" data-placeholder="&#xf207;"></span>
-                </div>
-            </p>
-            <p>
-                <div class="wrap-input100 validate-input" data-validate="Insira o Usuário">
-                    <input id="CadLogin" class="input100" type="text" name="CadLogin" placeholder="Usuário ou Nome da Empresa" />
-                    <span class="focus-input100" data-placeholder="&#xf207;"></span>
-                </div>
-            </p>
-            <p>
-                <div class="wrap-input100 validate-input" data-validate="Insira a Senha">
-                    <input id="CadSenha" class="input100" type="text" name="CadSenha" placeholder="Senha" />
-                    <span class="focus-input100" data-placeholder="&#xf207;"></span>
-                </div>
-            </p>
-            <p>
-                <button>Salvar</button>
-            </p>
-        </form>
     </div>
 </body>
 

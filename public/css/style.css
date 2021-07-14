@@ -9,10 +9,8 @@
 
 body {
     width: 100%;
-    background: #F9A03F;
+    background: #f1f2f6;
     overflow-x: hidden;
-    /*
-    #fad390;*/
 }
 
 nav {
@@ -32,7 +30,6 @@ button img {
 
 ul {
     padding: 0;
-    /*margin: 0 0 0 150px;*/
     list-style: none;
 }
 
