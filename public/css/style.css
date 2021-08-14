@@ -23,9 +23,13 @@ nav {
     height: 20vh;
 }
 
+button {
+    border-radius: 25px;
+}
+
 button img {
-    height: 20px;
-    width: 20px;
+    height: 21px;
+    width: 22px;
 }
 
 ul {
