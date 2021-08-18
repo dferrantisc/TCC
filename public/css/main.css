@@ -1156,6 +1156,11 @@ button:focus {
     color: #fff;
 }
 
+.single-team .social-list .google-plus a:hover {
+    background: #ff4757;
+    color: #fff;
+}
+
 .single-team .social-list .instagram a:hover {
     background: #fd79a8;
     color: #fff;
