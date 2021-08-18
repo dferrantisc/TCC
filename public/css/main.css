@@ -1141,18 +1141,28 @@ button:focus {
     color: #fff;
 }
 
-.single-team .social-list .twitter a:hover {
-    background: #1da1f2;
+.single-team .social-list .site a:hover {
+    background: #ffa502;
     color: #fff;
 }
 
-.single-team .social-list .google-plus a:hover {
-    background: #dd4d42;
+.single-team .social-list .whatsapp a:hover {
+    background: #2ed573;
     color: #fff;
 }
 
 .single-team .social-list .linkedin a:hover {
     background: #007bb6;
+    color: #fff;
+}
+
+.single-team .social-list .instagram a:hover {
+    background: #fd79a8;
+    color: #fff;
+}
+
+.single-team .social-list .github a:hover {
+    background: #2d3436;
     color: #fff;
 }
 
