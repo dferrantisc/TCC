@@ -288,20 +288,12 @@ button:focus {
     background: #1DA1F2;
 }
 
-.google-plus a {
-    color: #DD4D42;
+.site a {
+    color: #ffa502;
 }
 
-.google-plus a:hover {
-    background: #DD4D42;
-}
-
-.youtube a {
-    color: #DF2926;
-}
-
-.youtube a:hover {
-    background: #DF2926;
+.site a:hover {
+    background: #ffa502;
 }
 
 .linkedin a {
@@ -312,28 +304,20 @@ button:focus {
     background: #007BB6;
 }
 
-.pinterest a {
-    color: #BD081C;
+.whatsapp a {
+    color: #2ed573;
 }
 
-.pinterest a:hover {
-    background: #BD081C;
+.whatsapp a:hover {
+    background: #2ed573;
 }
 
-.dribbble a {
-    color: #EA4C89;
+.instagram a {
+    color: #fd79a8;
 }
 
-.dribbble a:hover {
+.instagram a:hover {
     background: #EA4C89;
-}
-
-.behance a {
-    color: #0B7CFF;
-}
-
-.behance a:hover {
-    background: #0B7CFF;
 }
 
 
