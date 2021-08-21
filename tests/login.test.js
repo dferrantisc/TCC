@@ -1,4 +1,4 @@
-const ProprietariofunciController = require("../src/controllers/ProprietorifunciController");
+const LoginController = require("../src/controllers/loginController");
 const entdds = require("../src/conexao");
 beforeEach(async() => {
     const user = await entdds.proprietariofuncionario.create({
@@ -15,5 +15,5 @@ afterEach(async() => {
 });
 
 test("Testa Login", async() => {
-    expect(await ProprietariofunciController.login("ali", "1234")).toBe(true);
+    expect(await LoginController.login("ali", "1234")).toBe(true);
 });

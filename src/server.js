@@ -12,6 +12,7 @@ app.use(
         extended: true,
     })
 );
+app.use(express.json());
 app.use(Routes);
 
 //bdconex.authenticate().then(() => console.log("Banco de Dados conectado"));
