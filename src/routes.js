@@ -5,6 +5,9 @@ const clienteController = require("./controllers/clienteController");
 const categoriaController = require("./controllers/categoriaController");
 const { request, response } = require("express");
 const produtoController = require("./controllers/produtoController");
+const { sorteio_cliente } = require("./conexao");
+const sorteioController = require("./controllers/sorteioController");
+const sorteioClienteController = require("./controllers/sorteioClienteController");
 
 // AUTENTICAÇÃO
 router.post("/login", async(request, response) => {
@@ -44,8 +47,8 @@ router.post("/categoria", async(request, response) => {
     response.send(await categoriaController.create(nome));
 });
 
-router.delete("/categoria", async(request, response) => {
-    const { id } = request.body;
+router.delete("/categoria/:id", async(request, response) => {
+    const { id } = request.params;
     const deletedCategory = await categoriaController.delete(id);
     response.json(deletedCategory);
 });
@@ -72,8 +75,8 @@ router.get("/produto/:id", async(request, response) => {
     response.send(await produtoController.findOne(id));
 });
 
-router.delete("/produto", async(request, response) => {
-    const { id } = request.body;
+router.delete("/produto/:id", async(request, response) => {
+    const { id } = request.params;
     const deletedProduct = await produtoController.delete(id);
     response.json(deletedProduct);
 });
@@ -89,6 +92,51 @@ router.put("/produto/:id", async(request, response) => {
         idcatg
     );
     response.json(updatedProduct);
+});
+
+//SORTEIO
+router.post("/sorteio", async(request, response) => {
+    const { nome, descricao, quantidade_ganhadores, imagem } = request.body;
+    response.send(
+        await sorteioController.create(
+            nome,
+            descricao,
+            quantidade_ganhadores,
+            imagem
+        )
+    );
+});
+router.get("/sorteio", async(request, response) => {
+    const { id } = request.params;
+    response.send(await sorteioController.findAll(id));
+});
+router.get("/sorteio/:id", async(request, response) => {
+    const { id } = request.params;
+    response.send(await sorteioController.findOne(id));
+});
+router.delete("/sorteio/:id", async(request, response) => {
+    const { id } = request.params;
+    const deletedSorteio = await sorteioController.delete(id);
+    response.json(deletedSorteio);
+});
+
+router.put("/sorteio/:id", async(request, response) => {
+    const { id } = request.params;
+    const { nome, descricao, quantidade_ganhadores, imagem } = request.body;
+    const updatedSorteios = await sorteioController.update(
+        id,
+        nome,
+        descricao,
+        quantidade_ganhadores,
+        imagem
+    );
+    response.json(updatedSorteios);
+});
+
+//Validaçao do Cliente no Sorteio /sorteio/cliente/
+router.post("/sorteio/cliente", async(request, response) => {
+    const { id_sorteio, id_cliente } = request.body;
+    response.send(await sorteioClienteController.create(id_sorteio, id_cliente));
 });
 
 module.exports = router;

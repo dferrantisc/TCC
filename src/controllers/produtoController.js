@@ -1,6 +1,5 @@
 const entdds = require("../conexao");
 const produtos = require("../entidades/produtos");
-const { findAll } = require("./categoriaController");
 module.exports = {
     async create(nome, preco, idadm, idcatg) {
         try {
@@ -19,7 +18,9 @@ module.exports = {
 
     async findAll() {
         try {
-            const produtos = await entdds.produtos.findAll();
+            const produtos = await entdds.produtos.findAll({
+                include: "categoria",
+            });
             return produtos;
         } catch (error) {
             console.log(error);
@@ -28,8 +29,8 @@ module.exports = {
     async findOne(id) {
         try {
             const produto = await entdds.produtos.findOne({
+                include: "categoria",
                 where: { id },
-                include: "categoria_produto",
             });
             return produto;
         } catch (error) {
