@@ -10,7 +10,6 @@
                     cpf: "required",
                     telefone: "required",
                     datanascimento: "required",
-                    subject: "required",
                     email: {
                         required: true,
                         email: true,
@@ -72,7 +71,7 @@
                         },
                         error: function() {
                             $("#form-message-warning").html(
-                                "Something went wrong. Please try again."
+                                "Algo Deu Errado. Por Favor Tente De Novo."
                             );
                             $("#form-message-warning").fadeIn();
                             $submit.css("display", "none");
