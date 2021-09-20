@@ -1,4 +1,6 @@
 const router = require("express").Router();
+const multer = require("multer");
+
 const LoginController = require("./controllers/loginController");
 const FuncionarioController = require("./controllers/funcionarioController");
 const clienteController = require("./controllers/clienteController");
@@ -7,6 +9,19 @@ const produtoController = require("./controllers/produtoController");
 const sorteioController = require("./controllers/sorteioController");
 const sorteioClienteController = require("./controllers/sorteioClienteController");
 const Authenticate = require("./middlewares/Authenticate");
+
+const storage = multer.diskStorage({
+  destination: function (req, file, cb) {
+    cb(null, "public/images");
+  },
+  filename: function (req, file, cb) {
+    const fileType = file.mimetype.split("/");
+    const uniqueSuffix = Date.now() + "-" + Math.round(Math.random() * 1e9);
+    cb(null, file.fieldname + "-" + uniqueSuffix + "." + fileType[1]);
+  },
+});
+
+const upload = multer({ dest: "public/images", storage });
 
 // AUTENTICAÇÃO
 router.post("/login", async (request, response) => {
@@ -51,6 +66,7 @@ router.get("/categoria", Authenticate, async (request, response) => {
 
 router.post("/categoria", Authenticate, async (request, response) => {
   const { nome } = request.body;
+  console.log(request.body);
   response.json(await categoriaController.create(nome));
 });
 
@@ -68,10 +84,24 @@ router.put("/categoria/:id", Authenticate, async (request, response) => {
 });
 
 // PRODUTO
-router.post("/produto", Authenticate, async (request, response) => {
-  const { nome, preco, idadm, idcatg } = request.body;
-  response.json(await produtoController.create(nome, preco, idadm, idcatg));
-});
+router.post(
+  "/produto",
+  upload.single("imagem"),
+  Authenticate,
+  async (request, response) => {
+    const { nome, preco, idadm, idcatg } = request.body;
+
+    response.json(
+      await produtoController.create(
+        nome,
+        preco,
+        idadm,
+        idcatg,
+        request.file.filename
+      )
+    );
+  }
+);
 
 router.get("/produto", Authenticate, async (request, response) => {
   response.json(await produtoController.findAll());
@@ -88,18 +118,31 @@ router.delete("/produto/:id", Authenticate, async (request, response) => {
   response.json(deletedProduct);
 });
 
-router.put("/produto/:id", Authenticate, async (request, response) => {
-  const { id } = request.params;
-  const { nome, preco, idadm, idcatg } = request.body;
-  const updatedProduct = await produtoController.update(
-    id,
-    nome,
-    preco,
-    idadm,
-    idcatg
-  );
-  response.json(updatedProduct);
-});
+router.put(
+  "/produto/:id",
+  upload.single("imagem"),
+  Authenticate,
+  async (request, response) => {
+    const { id } = request.params;
+    const { nome, preco, idadm, idcatg } = request.body;
+
+    console.log(request.file);
+
+    let file = null;
+
+    if (request.file) file = request.file.filename;
+
+    const updatedProduct = await produtoController.update(
+      id,
+      nome,
+      preco,
+      idadm,
+      idcatg,
+      file
+    );
+    response.json(updatedProduct);
+  }
+);
 
 //SORTEIO
 router.post("/sorteio", Authenticate, async (request, response) => {

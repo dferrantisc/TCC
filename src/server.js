@@ -14,6 +14,7 @@ app.use(
   })
 );
 app.use(express.json());
+app.use(express.static("public"));
 
 app.use(Routes);
 
@@ -22,11 +23,6 @@ app.use((error, req, res, next) => {
   /* istanbul ignore next */
   if (!error) {
     return next();
-  }
-
-  /* istanbul ignore next */
-  if (process.env.DEBUG === "1") {
-    console.error(error);
   }
 
   if (error.statusCode) {
@@ -47,15 +43,5 @@ app.use((error, req, res, next) => {
     messages: ["Algo deu errado"],
   });
 });
-
-//bdconex.authenticate().then(() => console.log("Banco de Dados conectado"));
-/*
-const user = entdds.usuariocliente.create({
-    nome: "alisson",
-    cpf: "000.269.2541.01",
-    email: "asdasd@mail.com",
-    telefone: "14578899",
-    datadenascimento: "10.08.1997",
-});*/
 
 app.listen(5000, () => console.log("server conectado"));

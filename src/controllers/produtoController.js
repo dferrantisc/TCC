@@ -1,13 +1,14 @@
 const entdds = require("../conexao");
 const produtos = require("../entidades/produtos");
 module.exports = {
-  async create(nome, preco, idadm, idcatg) {
+  async create(nome, preco, idadm, idcatg, img) {
     try {
       const produto = await entdds.produtos.create({
         nome,
         preço: preco,
         idadm,
         idcatg,
+        img,
       });
 
       return await produto.save();
@@ -51,10 +52,10 @@ module.exports = {
     }
   },
 
-  async update(id, nome, preco, idadm, idcatg) {
+  async update(id, nome, preco, idadm, idcatg, img) {
     try {
       const updatedProduct = await entdds.produtos.update(
-        { nome, preço: preco, idadm, idcatg },
+        { nome, preço: preco, idadm, idcatg, img },
         {
           where: {
             id,
