@@ -7,6 +7,9 @@
             $("#contactForm").validate({
                 rules: {
                     name: "required",
+                    cpf: "required",
+                    telefone: "required",
+                    datanascimento: "required",
                     subject: "required",
                     email: {
                         required: true,
