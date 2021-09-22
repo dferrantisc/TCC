@@ -63,6 +63,7 @@ module.exports = {
           returning: true,
         }
       );
+
       return updatedProduct;
     } catch (error) {
       throw new RequisicaoInvalida("Erro na Atualização do Produto!");

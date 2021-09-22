@@ -1,3 +1,5 @@
+import src/routers.js;
+
 (function($) {
     "use strict";
 

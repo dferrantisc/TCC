@@ -63,6 +63,8 @@ section {
     display: block;
 }
 
+
+
 body {
     margin: 0;
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
@@ -71,8 +73,7 @@ body {
     line-height: 1.5;
     color: #212529;
     text-align: left;
-    /*background-color: #fff; */
-    background: #7f8c8d;
+    background-color: #fff;
 }
 
 [tabindex="-1"]:focus {

@@ -124,13 +124,9 @@ router.put(
   Authenticate,
   async (request, response) => {
     const { id } = request.params;
-    const { nome, preco, idadm, idcatg } = request.body;
+    const { nome, preco, idadm, idcatg, imagem } = request.body;
 
-    console.log(request.file);
-
-    let file = null;
-
-    if (request.file) file = request.file.filename;
+    file = request.file ? request.file.filename : imagem;
 
     const updatedProduct = await produtoController.update(
       id,
@@ -145,22 +141,27 @@ router.put(
 );
 
 //SORTEIO
-router.post("/sorteio", Authenticate, async (request, response) => {
-  const { nome, descricao, quantidade_ganhadores, imagem } = request.body;
-  response.json(
-    await sorteioController.create(
-      nome,
-      descricao,
-      quantidade_ganhadores,
-      imagem
-    )
-  );
-});
+router.post(
+  "/sorteio",
+  upload.single("imagem"),
+  Authenticate,
+  async (request, response) => {
+    const { nome, descricao, quantidade_ganhadores } = request.body;
+    response.json(
+      await sorteioController.create(
+        nome,
+        descricao,
+        quantidade_ganhadores,
+        request.file.filename
+      )
+    );
+  }
+);
 router.get("/sorteio", Authenticate, async (request, response) => {
   const { id } = request.params;
   response.json(await sorteioController.findAll(id));
 });
-router.get("/sorteio/:id", Authenticate, async (request, response) => {
+router.get("/sorteio/:id", async (request, response) => {
   const { id } = request.params;
   response.json(await sorteioController.findOne(id));
 });
@@ -170,18 +171,26 @@ router.delete("/sorteio/:id", Authenticate, async (request, response) => {
   response.json(deletedSorteio);
 });
 
-router.put("/sorteio/:id", Authenticate, async (request, response) => {
-  const { id } = request.params;
-  const { nome, descricao, quantidade_ganhadores, imagem } = request.body;
-  const updatedSorteios = await sorteioController.update(
-    id,
-    nome,
-    descricao,
-    quantidade_ganhadores,
-    imagem
-  );
-  response.json(updatedSorteios);
-});
+router.put(
+  "/sorteio/:id",
+  upload.single("imagem"),
+  Authenticate,
+  async (request, response) => {
+    const { id } = request.params;
+    const { nome, descricao, quantidade_ganhadores, imagem } = request.body;
+
+    file = request.file ? request.file.filename : imagem;
+
+    const updatedSorteios = await sorteioController.update(
+      id,
+      nome,
+      descricao,
+      quantidade_ganhadores,
+      file
+    );
+    response.json(updatedSorteios);
+  }
+);
 
 //Validaçao do Cliente no Sorteio /sorteio/cliente/
 router.post("/sorteio/cliente", Authenticate, async (request, response) => {
