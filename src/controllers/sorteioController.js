@@ -1,12 +1,14 @@
 const entdds = require("../conexao");
 module.exports = {
-    async create(nome, descricao, quantidade_ganhadores, imagem) {
+    async create(nome, descricao, quantidade_ganhadores, datainicio, datafim, imagem) {
         try {
             const sorteios = await entdds.sorteio.create({
                 nome,
                 descricao,
                 quantidade_ganhadores,
                 imagem,
+                datainicio,
+                datafim
             });
 
             return await sorteios.save();
@@ -47,9 +49,9 @@ module.exports = {
         }
     },
 
-    async update(id, nome, descricao, quantidade_ganhadores, imagem) {
+    async update(id, nome, descricao, quantidade_ganhadores, datainicio, datafim, imagem) {
         try {
-            const updatedSorteios = await entdds.sorteio.update({ nome, descricao, quantidade_ganhadores, imagem }, {
+            const updatedSorteios = await entdds.sorteio.update({ nome, descricao, quantidade_ganhadores, datainicio, datafim, imagem }, {
                 where: {
                     idsort: id,
                 },

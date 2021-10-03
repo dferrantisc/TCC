@@ -166,12 +166,14 @@ router.post(
     upload.single("imagem"),
     Authenticate,
     async(request, response) => {
-        const { nome, descricao, quantidade_ganhadores } = request.body;
+        const { nome, descricao, quantidade_ganhadores, datainicio, datafim } = request.body;
         response.json(
             await sorteioController.create(
                 nome,
                 descricao,
                 quantidade_ganhadores,
+                datainicio,
+                datafim,
                 request.file.filename
             )
         );
@@ -197,7 +199,7 @@ router.put(
     Authenticate,
     async(request, response) => {
         const { id } = request.params;
-        const { nome, descricao, quantidade_ganhadores, imagem } = request.body;
+        const { nome, descricao, quantidade_ganhadores, imagem, datainicio, datafim } = request.body;
 
         file = request.file ? request.file.filename : imagem;
 
@@ -206,6 +208,8 @@ router.put(
             nome,
             descricao,
             quantidade_ganhadores,
+            datainicio,
+            datafim,
             file
         );
         response.json(updatedSorteios);
