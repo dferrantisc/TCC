@@ -1,3 +1,4 @@
+const RequisicaoInvalida = require("../errors/RequisicaoInvalida");
 const entdds = require("../conexao");
 module.exports = {
     async create(nome, descricao, quantidade_ganhadores, datainicio, datafim, imagem) {
@@ -30,6 +31,7 @@ module.exports = {
             const sorteio = await entdds.sorteio.findOne({
                 where: { idsort: id },
             });
+            if (!sorteio) throw new Error();
             return sorteio;
         } catch (error) {
             throw new RequisicaoInvalida("Erro");

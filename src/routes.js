@@ -217,7 +217,7 @@ router.put(
 );
 
 //Validaçao do Cliente no Sorteio /sorteio/cliente/
-router.post("/sorteio/cliente", Authenticate, async(request, response) => {
+router.post("/sorteio/cliente", async(request, response) => {
     const { id_sorteio, id_cliente } = request.body;
     response.json(await sorteioClienteController.create(id_sorteio, id_cliente));
 });
