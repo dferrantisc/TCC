@@ -20,6 +20,7 @@ CREATE TABLE Produtos(
 	idPdt SERIAL PRIMARY KEY,
 	NomePdt VARCHAR(200) NOTNULL,
 	Categoria VARCHAR(100) NOTNULL,
+	descricao VARCHAR(500),
 	Preço FLOAT(24)
 ),
 CREATE TABLE Sorteios(
