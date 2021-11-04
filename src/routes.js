@@ -86,7 +86,7 @@ router.post("/cliente", async (request, response) => {
 });
 
 // CATEGORIA
-router.get("/categoria", Authenticate, async (request, response) => {
+router.get("/categoria", async (request, response) => {
   response.json(await categoriaController.findAll());
 });
 
@@ -129,11 +129,16 @@ router.post(
   }
 );
 
-router.get("/produto", Authenticate, async (request, response) => {
+router.get("/produto", async (request, response) => {
   response.json(await produtoController.findAll());
 });
 
-router.get("/produto/:id", Authenticate, async (request, response) => {
+router.get("/produto/categoria/:id", async (request, response) => {
+  const { id } = request.params;
+  response.json(await produtoController.findByCategoria(id));
+});
+
+router.get("/produto/:id", async (request, response) => {
   const { id } = request.params;
   response.json(await produtoController.findOne(id));
 });
