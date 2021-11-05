@@ -13,250 +13,250 @@ const funcionarioController = require("./controllers/funcionarioController");
 const ganhadoresController = require("./controllers/ganhadoresController");
 
 const storage = multer.diskStorage({
-    destination: function(req, file, cb) {
-        cb(null, "public/images");
-    },
-    filename: function(req, file, cb) {
-        const fileType = file.mimetype.split("/");
-        const uniqueSuffix = Date.now() + "-" + Math.round(Math.random() * 1e9);
-        cb(null, file.fieldname + "-" + uniqueSuffix + "." + fileType[1]);
-    },
+  destination: function (req, file, cb) {
+    cb(null, "public/images");
+  },
+  filename: function (req, file, cb) {
+    const fileType = file.mimetype.split("/");
+    const uniqueSuffix = Date.now() + "-" + Math.round(Math.random() * 1e9);
+    cb(null, file.fieldname + "-" + uniqueSuffix + "." + fileType[1]);
+  },
 });
 
 const upload = multer({ dest: "public/images", storage });
 
 // AUTENTICAÇÃO
-router.post("/login", async(request, response) => {
-    const { login, senha } = request.body;
-    response.json(await LoginController.login(login, senha));
+router.post("/login", async (request, response) => {
+  const { login, senha } = request.body;
+  response.json(await LoginController.login(login, senha));
 });
 
-router.get("/me", async(request, response) => {
-    const { authorization } = request.headers;
+router.get("/me", async (request, response) => {
+  const { authorization } = request.headers;
 
-    const [, token] = authorization.split(/\s+/);
+  const [, token] = authorization.split(/\s+/);
 
-    response.json(await LoginController.check(token));
+  response.json(await LoginController.check(token));
 });
 
 // FUNCIONARIO
-router.post("/funcionario", Authenticate, async(request, response) => {
-    const { nome, email, login, senha } = request.body;
+router.post("/funcionario", Authenticate, async (request, response) => {
+  const { nome, email, login, senha } = request.body;
 
-    const funcionario = await FuncionarioController.create(
-        nome,
-        email,
-        login,
-        senha
-    );
+  const funcionario = await FuncionarioController.create(
+    nome,
+    email,
+    login,
+    senha
+  );
 
-    response.json(funcionario);
+  response.json(funcionario);
 });
 
-router.get("/funcionario", Authenticate, async(request, response) => {
-    response.json(await funcionarioController.findAll());
+router.get("/funcionario", Authenticate, async (request, response) => {
+  response.json(await funcionarioController.findAll());
 });
 
-router.delete("/funcionario/:id", Authenticate, async(request, response) => {
-    const { id } = request.params;
-    const deletedFuncionario = await funcionarioController.delete(id);
-    response.json(deletedFuncionario);
+router.delete("/funcionario/:id", Authenticate, async (request, response) => {
+  const { id } = request.params;
+  const deletedFuncionario = await funcionarioController.delete(id);
+  response.json(deletedFuncionario);
 });
 
-router.put("/funcionario/:id", Authenticate, async(request, response) => {
-    const { id } = request.params;
-    const { nome, login, email, senha } = request.body;
+router.put("/funcionario/:id", Authenticate, async (request, response) => {
+  const { id } = request.params;
+  const { nome, login, email, senha } = request.body;
 
-    const updatedFuncionario = await funcionarioController.update(
-        id,
-        nome,
-        login,
-        email,
-        senha
-    );
-    response.json(updatedFuncionario);
+  const updatedFuncionario = await funcionarioController.update(
+    id,
+    nome,
+    login,
+    email,
+    senha
+  );
+  response.json(updatedFuncionario);
 });
 
 // CLIENTE
-router.post("/cliente", async(request, response) => {
-    const { nome, telefone, data_nascimento, cpf, email } = request.body;
-    response.json(
-        await clienteController.create(nome, email, cpf, data_nascimento, telefone)
-    );
+router.post("/cliente", async (request, response) => {
+  const { nome, telefone, data_nascimento, cpf, email } = request.body;
+  response.json(
+    await clienteController.create(nome, email, cpf, data_nascimento, telefone)
+  );
 });
 
 // CATEGORIA
-router.get("/categoria", async(request, response) => {
-    response.json(await categoriaController.findAll());
+router.get("/categoria", async (request, response) => {
+  response.json(await categoriaController.findAll());
 });
 
-router.post("/categoria", Authenticate, async(request, response) => {
-    const { nome } = request.body;
-    console.log(request.body);
-    response.json(await categoriaController.create(nome));
+router.post("/categoria", Authenticate, async (request, response) => {
+  const { nome } = request.body;
+  console.log(request.body);
+  response.json(await categoriaController.create(nome));
 });
 
-router.delete("/categoria/:id", Authenticate, async(request, response) => {
-    const { id } = request.params;
-    const deletedCategory = await categoriaController.delete(id);
-    response.json(deletedCategory);
+router.delete("/categoria/:id", Authenticate, async (request, response) => {
+  const { id } = request.params;
+  const deletedCategory = await categoriaController.delete(id);
+  response.json(deletedCategory);
 });
 
-router.put("/categoria/:id", Authenticate, async(request, response) => {
-    const { id } = request.params;
-    const { nome } = request.body;
-    const updatedCategory = await categoriaController.update(id, nome);
-    response.json(updatedCategory);
+router.put("/categoria/:id", Authenticate, async (request, response) => {
+  const { id } = request.params;
+  const { nome } = request.body;
+  const updatedCategory = await categoriaController.update(id, nome);
+  response.json(updatedCategory);
 });
 
 // PRODUTO
 router.post(
-    "/produto",
-    upload.single("imagem"),
-    Authenticate,
-    async(request, response) => {
-        const { nome, preco, idadm, idcatg, descricao } = request.body;
+  "/produto",
+  upload.single("imagem"),
+  Authenticate,
+  async (request, response) => {
+    const { nome, preco, idadm, idcatg, descricao } = request.body;
 
-        response.json(
-            await produtoController.create(
-                nome,
-                preco,
-                idadm,
-                idcatg,
-                descricao,
-                request.file.filename
-            )
-        );
-    }
+    response.json(
+      await produtoController.create(
+        nome,
+        preco,
+        idadm,
+        idcatg,
+        request.file.filename,
+        descricao
+      )
+    );
+  }
 );
 
-router.get("/produto", async(request, response) => {
-    response.json(await produtoController.findAll());
+router.get("/produto", async (request, response) => {
+  response.json(await produtoController.findAll());
 });
 
-router.get("/produto/categoria/:id", async(request, response) => {
-    const { id } = request.params;
-    response.json(await produtoController.findByCategoria(id));
+router.get("/produto/categoria/:id", async (request, response) => {
+  const { id } = request.params;
+  response.json(await produtoController.findByCategoria(id));
 });
 
-router.get("/produto/:id", async(request, response) => {
-    const { id } = request.params;
-    response.json(await produtoController.findOne(id));
+router.get("/produto/:id", async (request, response) => {
+  const { id } = request.params;
+  response.json(await produtoController.findOne(id));
 });
 
-router.delete("/produto/:id", Authenticate, async(request, response) => {
-    const { id } = request.params;
-    const deletedProduct = await produtoController.delete(id);
-    response.json(deletedProduct);
+router.delete("/produto/:id", Authenticate, async (request, response) => {
+  const { id } = request.params;
+  const deletedProduct = await produtoController.delete(id);
+  response.json(deletedProduct);
 });
 
 router.put(
-    "/produto/:id",
-    upload.single("imagem"),
-    Authenticate,
-    async(request, response) => {
-        const { id } = request.params;
-        const { nome, preco, idadm, idcatg, imagem, descricao } = request.body;
+  "/produto/:id",
+  upload.single("imagem"),
+  Authenticate,
+  async (request, response) => {
+    const { id } = request.params;
+    const { nome, preco, idadm, idcatg, imagem, descricao } = request.body;
 
-        file = request.file ? request.file.filename : imagem;
+    file = request.file ? request.file.filename : imagem;
 
-        const updatedProduct = await produtoController.update(
-            id,
-            nome,
-            preco,
-            idadm,
-            idcatg,
-            file,
-            descricao
-        );
-        response.json(updatedProduct);
-    }
+    const updatedProduct = await produtoController.update(
+      id,
+      nome,
+      preco,
+      idadm,
+      idcatg,
+      descricao,
+      file
+    );
+    response.json(updatedProduct);
+  }
 );
 
 //SORTEIO
 router.post(
-    "/sorteio",
-    upload.single("imagem"),
-    Authenticate,
-    async(request, response) => {
-        const { nome, descricao, quantidade_ganhadores, datainicio, datafim } =
-        request.body;
-        response.json(
-            await sorteioController.create(
-                nome,
-                descricao,
-                quantidade_ganhadores,
-                datainicio,
-                datafim,
-                request.file.filename
-            )
-        );
-    }
+  "/sorteio",
+  upload.single("imagem"),
+  Authenticate,
+  async (request, response) => {
+    const { nome, descricao, quantidade_ganhadores, datainicio, datafim } =
+      request.body;
+    response.json(
+      await sorteioController.create(
+        nome,
+        descricao,
+        quantidade_ganhadores,
+        datainicio,
+        datafim,
+        request.file.filename
+      )
+    );
+  }
 );
-router.get("/sorteio", Authenticate, async(request, response) => {
-    const { id } = request.params;
-    response.json(await sorteioController.findAll(id));
+router.get("/sorteio", async (request, response) => {
+  const { id } = request.params;
+  response.json(await sorteioController.findAll(id));
 });
-router.get("/sorteio/:id", async(request, response) => {
-    const { id } = request.params;
-    response.json(await sorteioController.findOne(id));
+router.get("/sorteio/:id", async (request, response) => {
+  const { id } = request.params;
+  response.json(await sorteioController.findOne(id));
 });
-router.delete("/sorteio/:id", Authenticate, async(request, response) => {
-    const { id } = request.params;
-    const deletedSorteio = await sorteioController.delete(id);
-    response.json(deletedSorteio);
+router.delete("/sorteio/:id", Authenticate, async (request, response) => {
+  const { id } = request.params;
+  const deletedSorteio = await sorteioController.delete(id);
+  response.json(deletedSorteio);
 });
 
 router.put(
-    "/sorteio/:id",
-    upload.single("imagem"),
-    Authenticate,
-    async(request, response) => {
-        const { id } = request.params;
-        const {
-            nome,
-            descricao,
-            quantidade_ganhadores,
-            imagem,
-            datainicio,
-            datafim,
-        } = request.body;
+  "/sorteio/:id",
+  upload.single("imagem"),
+  Authenticate,
+  async (request, response) => {
+    const { id } = request.params;
+    const {
+      nome,
+      descricao,
+      quantidade_ganhadores,
+      imagem,
+      datainicio,
+      datafim,
+    } = request.body;
 
-        file = request.file ? request.file.filename : imagem;
+    file = request.file ? request.file.filename : imagem;
 
-        const updatedSorteios = await sorteioController.update(
-            id,
-            nome,
-            descricao,
-            quantidade_ganhadores,
-            datainicio,
-            datafim,
-            file
-        );
-        response.json(updatedSorteios);
-    }
+    const updatedSorteios = await sorteioController.update(
+      id,
+      nome,
+      descricao,
+      quantidade_ganhadores,
+      datainicio,
+      datafim,
+      file
+    );
+    response.json(updatedSorteios);
+  }
 );
 
 //Validaçao do Cliente no Sorteio /sorteio/cliente/
-router.post("/sorteio/cliente", async(request, response) => {
-    const { id_sorteio, id_cliente } = request.body;
-    response.json(await sorteioClienteController.create(id_sorteio, id_cliente));
+router.post("/sorteio/cliente", async (request, response) => {
+  const { id_sorteio, id_cliente } = request.body;
+  response.json(await sorteioClienteController.create(id_sorteio, id_cliente));
 });
 
-router.get("/sorteio/:id/cliente", async(request, response) => {
-    const { id } = request.params;
-    response.json(await sorteioClienteController.findBySorteio(id));
+router.get("/sorteio/:id/cliente", async (request, response) => {
+  const { id } = request.params;
+  response.json(await sorteioClienteController.findBySorteio(id));
 });
 
 // Realizar sorteio
-router.post("/sorteio/:id/ganhadores", async(request, response) => {
-    const { id } = request.params;
-    response.json(await ganhadoresController.create(id));
+router.post("/sorteio/:id/ganhadores", async (request, response) => {
+  const { id } = request.params;
+  response.json(await ganhadoresController.create(id));
 });
 
-router.get("/sorteio/:id/ganhadores", async(request, response) => {
-    const { id } = request.params;
-    response.json(await ganhadoresController.findAll(id));
+router.get("/sorteio/:id/ganhadores", async (request, response) => {
+  const { id } = request.params;
+  response.json(await ganhadoresController.findAll(id));
 });
 
 module.exports = router;
