@@ -1,31 +1,90 @@
-CREATE TABLE ProprietarioFunci(
-	idAdm SERIAL PRIMARY KEY,
-	loguser VARCHAR(200) NOTNULL, 
-	logpass VARCHAR(100) NOTNULL,
-	Nome VARCHAR(100) NOTNULL,
-	Sobrenome VARCHAR(100) NOTNULL,
-	Email VARCHAR(100)
-	
-),
-CREATE TABLE UsuarioCliente(
-	idUC SERIAL PRIMARY KEY,
-	NomeCompleto VARCHAR(200) NOTNULL,
-	CPF VARCHAR(15) NOTNULL,
-	Telefone VARCHAR(20) NOTNULL,
-	DatadeNascimento DATE NOTNULL,
-	EmailUC  VARCHAR(100)
-),
+CREATE DATABASE TCC; 
 
-CREATE TABLE Produtos(
-	idPdt SERIAL PRIMARY KEY,
-	NomePdt VARCHAR(200) NOTNULL,
-	Categoria VARCHAR(100) NOTNULL,
-	descricao VARCHAR(500),
-	Preço FLOAT(24)
-),
-CREATE TABLE Sorteios(
-	idSort SERIAL PRIMARY KEY,
-	Ganhadores VARCHAR(200) NOTNULL,
-	Participantes VARCHAR NOTNULL,
-	FOREIGN KEY (idUC) REFERENCES UsuarioCliente (idUC)
+use TCC;
+
+CREATE TABLE ProprietarioFuncionario (
+IdAdm SERIAL PRIMARY KEY,
+Login VARCHAR(100) NOT NULL,
+Senha VARCHAR(100) NOT NULL,
+Nome VARCHAR(100) NOT NULL,
+Email VARCHAR(100) NOT NULL
+
 );
+			  
+CREATE TABLE UsuarioCliente (
+IdUC SERIAL PRIMARY KEY,
+Nome VARCHAR(100) NOT NULL,
+CPF VARCHAR(15) NOT NULL,
+Email VARCHAR(100) NOT NULL,
+Telefone VARCHAR(100) NOT NULL,
+DatadeNascimento Date NOT NULL
+);
+
+CREATE TABLE Categoria_Produto (
+	Idcatg SERIAL PRIMARY KEY,
+	nome VARCHAR(200) NOT NULL
+);
+
+CREATE TABLE Produtos (
+Id SERIAL PRIMARY KEY,
+Nome VARCHAR(200) NOT NULL,
+img varchar(100) NOT NULL,
+Preço Float NOT NULL,
+img varchar(100) NOT NULL,
+descricao varchar(500) NOT NULL,
+IdAdm INT,
+idcatg INT NOT NULL,
+	FOREIGN KEY(IdAdm) REFERENCES ProprietarioFuncionario (IdAdm),
+	FOREIGN KEY(idcatg) REFERENCES Categoria_Produto (idcatg)
+	
+);
+
+CREATE TABLE Sorteio (
+	IdSort SERIAL PRIMARY KEY,
+	Nome VARCHAR(200) NOT NULL,
+	Descricao VARCHAR(200) NOT NULL,
+	Quantidade_Ganhadores INT NOT NULL,
+	Imagem VARCHAR (100) NOT NULL,
+	datainicio date NOT NULL,
+	datafim date NOT NULL,
+);
+CREATE TABLE Ganhadores(
+	idUC INT,
+	idSort INT,
+	FOREIGN KEY(idUC) REFERENCES UsuarioCliente (idUC),
+	FOREIGN KEY(idSort) REFERENCES Sorteio (idSort)
+);
+
+CREATE TABLE Sorteio_Cliente (
+IdUC Int,
+IdSort Int,
+FOREIGN KEY(IdUC) REFERENCES UsuarioCliente (IdUC),
+FOREIGN KEY(IdSort) REFERENCES Sorteio (IdSort)
+);
+
+
+CREATE TABLE Ganhadores(
+	idUC INT,
+	idSort INT,
+	FOREIGN KEY(idUC) REFERENCES UsuarioCliente (idUC),
+	FOREIGN KEY(idSort) REFERENCES Sorteio (idSort)
+);
+
+Rodar depois de Criar o banco e suas Tabelas:
+------------------------------------------------------
+
+ALTER TABLE public.ganhadores DROP CONSTRAINT ganhadores_idsort_fkey;
+
+ALTER TABLE public.ganhadores
+    ADD CONSTRAINT ganhadores_idsort_fkey FOREIGN KEY (idsort)
+    REFERENCES public.sorteio (idsort)
+    ON UPDATE CASCADE
+    ON DELETE CASCADE;
+
+ALTER TABLE public.sorteio_cliente DROP CONSTRAINT sorteio_cliente_idsort_fkey;
+
+ALTER TABLE public.sorteio_cliente
+    ADD CONSTRAINT sorteio_cliente_idsort_fkey FOREIGN KEY (idsort)
+    REFERENCES public.sorteio (idsort)
+    ON UPDATE CASCADE
+    ON DELETE CASCADE;
