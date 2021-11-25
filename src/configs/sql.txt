@@ -48,6 +48,7 @@ CREATE TABLE Sorteio (
 	datainicio date NOT NULL,
 	datafim date NOT NULL,
 );
+
 CREATE TABLE Ganhadores(
 	idUC INT,
 	idSort INT,
